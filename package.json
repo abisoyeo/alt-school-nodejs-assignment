@@ -1,0 +1,25 @@
+{
+  "name": "abisoye-node-assignment",
+  "version": "1.0.0",
+  "description": "A Node.js project created as part of my AltSchool backend engineering assignment.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abisoyeo/altschool-node-assignment.git"
+  },
+  "keywords": [
+    "altschool",
+    "nodejs",
+    "backend",
+    "assignment"
+  ],
+  "author": "Abisoye Ogunmona (ALT/SOE/024/2400)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/altschool-node-assignment/issues"
+  },
+  "homepage": "https://github.com/yourusername/altschool-node-assignment#readme"
+}
