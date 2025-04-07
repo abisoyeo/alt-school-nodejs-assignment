@@ -4,7 +4,8 @@
   "description": "A Node.js project created as part of my AltSchool backend engineering assignment.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/yourusername/altschool-node-assignment/issues"
   },
-  "homepage": "https://github.com/yourusername/altschool-node-assignment#readme"
+  "homepage": "https://github.com/yourusername/altschool-node-assignment#readme",
+  "dependencies": {
+    "nodemon": "^3.1.9"
+  }
 }
