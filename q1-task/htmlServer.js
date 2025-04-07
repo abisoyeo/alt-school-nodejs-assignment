@@ -42,7 +42,6 @@ const htmlFileHandler = function (request, response) {
   }
 };
 
-// Create the server
 const server = http.createServer(htmlFileHandler);
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}`);

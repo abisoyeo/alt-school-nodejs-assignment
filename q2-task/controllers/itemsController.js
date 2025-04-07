@@ -1,14 +1,15 @@
 const fs = require("fs");
 const path = require("path");
+const { readFile, writeFile } = require("../utils/fileUtils");
 
-const itemsDbPath = path.join(__dirname, "db", "items.json");
+const itemsDbPath = path.join(__dirname, "..", "db", "items.json");
 
 const getAllItems = (request, response) => {
-  fs.readFile(itemsDbPath, "utf8", (err, items) => {
+  readFile(itemsDbPath, (err, items) => {
     if (err) {
-      console.log(err);
       response.writeHead(400);
       response.end("An error occurred");
+      return;
     }
     response.end(items);
   });
@@ -17,9 +18,8 @@ const getAllItems = (request, response) => {
 const getSingleItem = (request, response) => {
   const itemId = request.url.split("/").pop();
 
-  fs.readFile(itemsDbPath, "utf8", (err, data) => {
+  readFile(itemsDbPath, (err, data) => {
     if (err) {
-      console.log(err);
       response.writeHead(400);
       response.end("An error occurred while reading the data.");
       return;
@@ -29,7 +29,6 @@ const getSingleItem = (request, response) => {
     try {
       itemsDB = JSON.parse(data);
     } catch (parseError) {
-      console.error("Invalid JSON in items.json:", parseError);
       response.writeHead(400);
       response.end("An error occurred while parsing the JSON.");
       return;
@@ -42,21 +41,15 @@ const getSingleItem = (request, response) => {
       response.end(JSON.stringify(item));
     } else {
       response.writeHead(404);
-      response.end(
-        JSON.stringify({
-          message: "Item Not Found",
-        })
-      );
+      response.end(JSON.stringify({ message: "Item Not Found" }));
     }
   });
 };
 
 const addItem = (request, response) => {
-  const body = [];
-
-  fs.readFile(itemsDbPath, "utf8", (err, data) => {
+  let body = [];
+  readFile(itemsDbPath, (err, data) => {
     if (err) {
-      console.log(err);
       response.writeHead(400);
       response.end("An error occurred while reading the data.");
       return;
@@ -66,7 +59,6 @@ const addItem = (request, response) => {
     try {
       itemsDB = JSON.parse(data);
     } catch (parseError) {
-      console.error("Invalid JSON in items.json:", parseError);
       response.writeHead(400);
       response.end("An error occurred while parsing the JSON.");
       return;
@@ -83,19 +75,16 @@ const addItem = (request, response) => {
       const newItem = JSON.parse(parsedBody);
 
       newItem.id = lastItemId + 1;
-
       itemsDB.push(newItem);
 
-      fs.writeFile(itemsDbPath, JSON.stringify(itemsDB), (err) => {
+      writeFile(itemsDbPath, JSON.stringify(itemsDB), (err) => {
         if (err) {
-          console.log(err);
           response.writeHead(500);
           response.end(
             "Internal Server Error. Could not save item to database."
           );
           return;
         }
-
         response.writeHead(201);
         response.end(JSON.stringify(newItem));
       });
@@ -104,11 +93,9 @@ const addItem = (request, response) => {
 };
 
 const updateItem = (request, response) => {
-  const body = [];
-
-  fs.readFile(itemsDbPath, "utf8", (err, data) => {
+  let body = [];
+  readFile(itemsDbPath, (err, data) => {
     if (err) {
-      console.log(err);
       response.writeHead(400);
       response.end("An error occurred while reading the data.");
       return;
@@ -118,7 +105,6 @@ const updateItem = (request, response) => {
     try {
       itemsDB = JSON.parse(data);
     } catch (parseError) {
-      console.error("Invalid JSON in items.json:", parseError);
       response.writeHead(400);
       response.end("An error occurred while parsing the JSON.");
       return;
@@ -140,24 +126,18 @@ const updateItem = (request, response) => {
       if (itemIndex !== -1) {
         itemsDB[itemIndex] = { ...itemsDB[itemIndex], ...updatedItem };
 
-        fs.writeFile(itemsDbPath, JSON.stringify(itemsDB), (err) => {
+        writeFile(itemsDbPath, JSON.stringify(itemsDB), (err) => {
           if (err) {
-            console.log(err);
             response.writeHead(500);
             response.end("Internal Server Error. Could not update the item.");
             return;
           }
-
-          response.writeHead(200, { "Content-Type": "application/json" });
+          response.writeHead(200);
           response.end(JSON.stringify(itemsDB[itemIndex]));
         });
       } else {
         response.writeHead(404);
-        response.end(
-          JSON.stringify({
-            message: "Item Not Found",
-          })
-        );
+        response.end(JSON.stringify({ message: "Item Not Found" }));
       }
     });
   });
@@ -166,9 +146,8 @@ const updateItem = (request, response) => {
 const deleteItem = (request, response) => {
   const itemId = request.url.split("/").pop();
 
-  fs.readFile(itemsDbPath, "utf8", (err, data) => {
+  readFile(itemsDbPath, (err, data) => {
     if (err) {
-      console.log(err);
       response.writeHead(400);
       response.end("An error occurred while reading the data.");
       return;
@@ -178,7 +157,6 @@ const deleteItem = (request, response) => {
     try {
       itemsDB = JSON.parse(data);
     } catch (parseError) {
-      console.error("Invalid JSON in items.json:", parseError);
       response.writeHead(400);
       response.end("An error occurred while parsing the JSON.");
       return;
@@ -189,28 +167,18 @@ const deleteItem = (request, response) => {
     if (itemIndex !== -1) {
       itemsDB.splice(itemIndex, 1);
 
-      fs.writeFile(itemsDbPath, JSON.stringify(itemsDB), (err) => {
+      writeFile(itemsDbPath, JSON.stringify(itemsDB), (err) => {
         if (err) {
-          console.log(err);
           response.writeHead(500);
           response.end("Internal Server Error. Could not delete the item.");
           return;
         }
-
         response.writeHead(200);
-        response.end(
-          JSON.stringify({
-            message: "Item deleted successfully",
-          })
-        );
+        response.end(JSON.stringify({ message: "Item deleted successfully" }));
       });
     } else {
       response.writeHead(404);
-      response.end(
-        JSON.stringify({
-          message: "Item Not Found",
-        })
-      );
+      response.end(JSON.stringify({ message: "Item Not Found" }));
     }
   });
 };

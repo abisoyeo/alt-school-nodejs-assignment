@@ -1,16 +1,12 @@
-const http = require("http");
 const {
   getAllItems,
   getSingleItem,
   addItem,
   updateItem,
   deleteItem,
-} = require("./itemServerHelper");
+} = require("../controllers/itemsController");
 
-const hostname = "localhost";
-const port = 8008;
-
-const requestHandler = (request, response) => {
+module.exports = (request, response) => {
   response.setHeader("Content-Type", "application/json");
 
   if (request.url === "/items" && request.method === "GET") {
@@ -32,8 +28,3 @@ const requestHandler = (request, response) => {
     );
   }
 };
-
-const server = http.createServer(requestHandler);
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}`);
-});

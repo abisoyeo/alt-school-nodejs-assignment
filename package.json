@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "htmlDev": "nodemon htmlServer.js",
-    "itemDev": "nodemon itemServer.js"
+    "htmlDev": "nodemon q1-task/htmlServer.js",
+    "itemDev": "nodemon q2-task/itemServer.js"
   },
   "repository": {
     "type": "git",
