@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const routes = require("./invetory-api/routes/routes");
 
-const hostname = "localhost";
+const hostname = "0.0.0.0";
 const port = process.env.PORT || 8000;
 
 const requestHandler = (request, response) => {
