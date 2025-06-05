@@ -6,7 +6,7 @@ This repository contains two backend assignments—built with only Node.js core 
 
 - **Assignment 1**: Static HTML Server
 
-  - Serves `index.html` at `/index.html` (student profile page, with fragment identifier to scroll to top).
+  - Serves `index.html` at `/index.html` (student profile page).
   - Any other `.html` path (e.g., `/random.html`) returns a custom 404 page.
   - Uses Node.js core modules: `http`, `fs`, `path`.
 
@@ -18,17 +18,24 @@ This repository contains two backend assignments—built with only Node.js core 
     - `price` (number)
     - `size` (`"s" | "m" | "l"`)
   - Endpoints:
-    - `GET  /items` → list all items
-    - `GET  /items/:id` → get a single item
-    - `POST /items` → create item
-    - `PUT  /items/:id` → update item
-    - `DELETE /items/:id` → delete item
+    - `GET  /api/items` → list all items
+    - `GET  /api/items/:id` → get a single item
+    - `POST /api/items` → create item
+    - `PUT  /api/items/:id` → update item
+    - `DELETE /api/items/:id` → delete item
   - Uses `fs` to read/write `items.json`, with consistent JSON response format and error handling.
 
 ## Hosted Demo
 
 All assignment pages and apis are hosted at:  
 [https://abisoye-altschool-nodejs-assignment.onrender.com](https://abisoye-altschool-nodejs-assignment.onrender.com)
+
+## API Endpoints
+**API Base URL:** `https://abisoye-altschool-nodejs-assignment.onrender.com/api`
+* **GET all items:** `/api/items`
+* **View student profile:** `/`
+
+---
 
 ## About
 
