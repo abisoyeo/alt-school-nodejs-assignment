@@ -9,15 +9,24 @@ const {
 module.exports = (request, response) => {
   response.setHeader("Content-Type", "application/json");
 
-  if (request.url === "/items" && request.method === "GET") {
+  if (request.url === "/api/items" && request.method === "GET") {
     getAllItems(request, response);
-  } else if (request.url.match(/\/items\/\d+/) && request.method === "GET") {
+  } else if (
+    request.url.match(/\/api\/items\/\d+/) &&
+    request.method === "GET"
+  ) {
     getSingleItem(request, response);
-  } else if (request.url === "/items" && request.method === "POST") {
+  } else if (request.url === "/api/items" && request.method === "POST") {
     addItem(request, response);
-  } else if (request.url.match(/\/items\/\d+/) && request.method === "PUT") {
+  } else if (
+    request.url.match(/\/api\/items\/\d+/) &&
+    request.method === "PUT"
+  ) {
     updateItem(request, response);
-  } else if (request.url.match(/\/items\/\d+/) && request.method === "DELETE") {
+  } else if (
+    request.url.match(/\/api\/items\/\d+/) &&
+    request.method === "DELETE"
+  ) {
     deleteItem(request, response);
   } else {
     response.writeHead(404);

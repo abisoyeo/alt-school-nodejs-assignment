@@ -1,13 +1,34 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const routes = require("./invetory-api/routes/routes");
 
 const hostname = "localhost";
 const port = 8000;
 
-const htmlFileHandler = function (request, response) {
-  const indexFilePath = path.join(__dirname, "static", "index.html");
-  const errorFilePath = path.join(__dirname, "static", "error.html");
+const requestHandler = (request, response) => {
+  if (request.url.startsWith("/api")) {
+    // Handle API routes
+    routes(request, response);
+  } else {
+    // Handle static HTML files
+    handleStaticFiles(request, response);
+  }
+};
+
+const handleStaticFiles = (request, response) => {
+  const indexFilePath = path.join(
+    __dirname,
+    "html-server",
+    "static",
+    "index.html"
+  );
+  const errorFilePath = path.join(
+    __dirname,
+    "html-server",
+    "static",
+    "error.html"
+  );
 
   if (
     request.url === "/" ||
@@ -42,7 +63,9 @@ const htmlFileHandler = function (request, response) {
   }
 };
 
-const server = http.createServer(htmlFileHandler);
+const server = http.createServer(requestHandler);
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}`);
+  console.log(`API routes available at http://${hostname}:${port}/api/*`);
+  console.log(`Static files available at http://${hostname}:${port}/`);
 });
