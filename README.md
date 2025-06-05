@@ -1,6 +1,6 @@
 # AltSchool Node.js Combined Server & API Assignment
 
-This repository contains two backend assignments—built with only Node.js core modules—merged into a single entry point (`server.js`). It was completed as part of the AltSchool Africa Backend Engineering Program.
+This repository contains two backend assignments—built with only Node.js core modules. It was completed as part of the AltSchool Africa Backend Engineering Program.
 
 ## Overview
 
